@@ -1,165 +1,260 @@
 "use client";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from 'next/link'
-//import { Github, Music, ThumbsUp, ThumbsDown, Check, Headphones, ListMusic, Users } from 'lucide-react'
-import { SoundSyncLogo } from './logo'
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Github, Music, ThumbsUp, ThumbsDown, Check, Headphones, ListMusic, Users } from "lucide-react";
+import { Button } from "@/components/ui/button"
+import { RetroButton, RetroCard, WavyDivider, RetroHeading } from '@/app/components/retro-elements'
+import { SoundSyncLogo } from '@/app/components/logo'
+import { Github, ListMusic, ThumbsUp, ThumbsDown, Music, Users, Headphones, Check, ArrowRight } from 'lucide-react'
 
-export function Appbar(){
-    const session = useSession();
-    return <div>
-        <div className="min-h-screen bg-black text-white">
-          {/* Header */}
-          <header className="border-b border-gray-800">
-            <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-              <Link href="/" className="text-2xl font-bold">
-                <SoundSyncLogo />
-              </Link>
-              <nav className="space-x-4">
-                <Link href="#features" className="text-gray-300 hover:text-white">Features</Link>
-                <Link href="#pricing" className="text-gray-300 hover:text-white">Pricing</Link>
-                <Link href="#about" className="text-gray-300 hover:text-white">About</Link>
-                <Link href="#contact" className="text-gray-300 hover:text-white">Contact</Link>
-                {session.data?.user && <button onClick={()=>signOut()}>Logout</button>}
-                {!session.data?.user && <button onClick={()=>signIn()}>SignIn</button>}
-                <Link href="https://github.com/yourusername/soundsync" target="_blank" rel="noopener noreferrer">
-                  <Github className="inline-block w-6 h-6" />
-                </Link>
-              </nav>
-            </div>
-          </header>
-          <section className="py-20 text-center bg-gradient-to-b from-black to-gray-900">
-            <h1 className="text-5xl font-bold mb-6">Sync Your Sound, Shape the Playlist</h1>
-            <p className="text-xl mb-8 text-gray-400">Create, vote, and discover playlists that evolve with the community's taste.</p>
-            <Button size="lg" className="bg-white text-black hover:bg-gray-200 font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out">
+export default function Appbar() {
+  const session= useSession();
+  return (
+    <div className="min-h-screen bg-white text-black">
+      {/* Header */}
+      <header className="border-b-2 border-black">
+        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+          <Link href="/" className="transform hover:scale-105 transition-transform">
+            <SoundSyncLogo />
+          </Link>
+          <nav className="space-x-6 font-bold">
+            <Link href="#features" className="hover:underline underline-offset-4">Features</Link>
+            <Link href="#pricing" className="hover:underline underline-offset-4">Pricing</Link>
+            <Link href="#about" className="hover:underline underline-offset-4">About</Link>
+            <Link href="#contact" className="hover:underline underline-offset-4">Contact</Link>
+            {session.data?.user && <button className= "hover:underline underline-offset-40" onClick={()=>signOut()}>Logout</button>} 
+            {!session.data?.user && <button className= "hover:underline underline-offset-40" onClick={()=>signIn()}>SignIn</button>}
+            <Link 
+              href="https://github.com/SaiCharanReddyPuligari/sound-sync" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block border-2 border-black p-1 hover:bg-black hover:text-white transition-colors"
+            >
+              <Github className="w-6 h-6" />
+            </Link>
+          </nav>
+        </div>
+      </header>
+
+      {/* Hero Section */}
+      <section className="relative py-20 bg-black text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="white" fill-opacity="0.4" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="3"/%3E%3Ccircle cx="13" cy="13" r="3"/%3E%3C/g%3E%3C/svg%3E")',
+            backgroundSize: '20px 20px'
+          }} />
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h1 className="text-6xl font-bold mb-6 leading-tight">
+            Sync Your Sound,
+            <br />
+            Shape the Playlist
+          </h1>
+          <p className="text-xl mb-8 text-gray-400">
+            Create, vote, and discover playlists that evolve with the community's taste.
+          </p>
+          <div className="flex justify-center space-x-6">
+            <RetroButton variant="secondary">
               Get Started
-            </Button>
-          </section>
-    
-          {/* Features Section */}
-          <section id="features" className="py-20 bg-gray-900">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-center mb-12">Key Features</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <Card className="bg-white border-gray-700">
-                  <CardContent className="p-6 text-center">
-                    <ListMusic className="w-12 h-12 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">Create Playlists</h3>
-                    <p className="text-gray-800">Curate and share your unique music collections with the community.</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-white border-gray-700">
-                  <CardContent className="p-6 text-center">
-                    <ThumbsUp className="w-12 h-12 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">Upvote Favorites</h3>
-                    <p className="text-gray-800">Push the best tracks to the top by upvoting your favorites.</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-white border-gray-700">
-                  <CardContent className="p-6 text-center">
-                    <ThumbsDown className="w-12 h-12 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">Downvote to Refine</h3>
-                    <p className="text-gray-800">Help improve playlists by downvoting mismatched tracks.</p>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </section>
-    
-          {/* How It Works Section */}
-          <section className="py-20 bg-black">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="text-center">
-                  <Music className="w-16 h-16 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">1. Create a Playlist</h3>
-                  <p className="text-gray-400">Curate your perfect playlist and share it with the community.</p>
-                </div>
-                <div className="text-center">
-                  <Users className="w-16 h-16 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">2. Community Votes</h3>
-                  <p className="text-gray-400">Users upvote or downvote songs in the playlist.</p>
-                </div>
-                <div className="text-center">
-                  <Headphones className="w-16 h-16 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">3. Playlist Evolves</h3>
-                  <p className="text-gray-400">Top-voted songs rise to the top, creating a community-curated experience.</p>
-                </div>
-              </div>
-            </div>
-          </section>
-    
-          {/* Pricing Section */}
-          <section id="pricing" className="py-20 bg-gray-900">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-center mb-12">Choose Your Plan</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <Card className="bg-gray-800 border-gray-700">
-                  <CardContent className="p-6">
-                    <h3 className="text-2xl font-semibold mb-4">Free</h3>
-                    <ul className="space-y-2 mb-6 text-gray-400">
-                      <li className="flex items-center"><Check className="w-5 h-5 mr-2" /> Discover playlists</li>
-                      <li className="flex items-center"><Check className="w-5 h-5 mr-2" /> Vote on tracks</li>
-                      <li className="flex items-center"><Check className="w-5 h-5 mr-2" /> Limited playlist creation</li>
-                    </ul>
-                    <Button variant="outline" className="w-full border-white text-white hover:bg-white hover:text-black transition duration-300 ease-in-out">Start Free</Button>
-                  </CardContent>
-                </Card>
-                <Card className="bg-gray-800 border-gray-700">
-                  <CardContent className="p-6">
-                    <h3 className="text-2xl font-semibold mb-4">Premium</h3>
-                    <ul className="space-y-2 mb-6 text-gray-400">
-                      <li className="flex items-center"><Check className="w-5 h-5 mr-2" /> All Free features</li>
-                      <li className="flex items-center"><Check className="w-5 h-5 mr-2" /> Unlimited playlist creation</li>
-                      <li className="flex items-center"><Check className="w-5 h-5 mr-2" /> Advanced analytics</li>
-                      <li className="flex items-center"><Check className="w-5 h-5 mr-2" /> Ad-free experience</li>
-                    </ul>
-                    <Button className="w-full bg-white text-black hover:bg-gray-200 transition duration-300 ease-in-out">Go Premium</Button>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </section>
-    
-          {/* About Section */}
-          <section id="about" className="py-20 bg-black">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-center mb-8">About SoundSync</h2>
-              <p className="text-gray-400 text-center max-w-2xl mx-auto">
-                SoundSync is a revolutionary platform that brings music lovers together. We believe in the power of community-driven playlists, where every vote shapes the listening experience. Our mission is to create a dynamic space where music discovery is collaborative, exciting, and always evolving.
-              </p>
-            </div>
-          </section>
-    
-          {/* Contact Section */}
-          <section id="contact" className="py-20 bg-gray-900">
-            <div className="container mx-auto px-4">
-              <h2 className="text-3xl font-bold text-center mb-8">Contact Us</h2>
-              <div className="max-w-md mx-auto">
-                <form className="space-y-4">
-                  <input type="text" placeholder="Name" className="w-full p-2 bg-gray-800 border border-gray-700 rounded" />
-                  <input type="email" placeholder="Email" className="w-full p-2 bg-gray-800 border border-gray-700 rounded" />
-                  <textarea placeholder="Message" rows={4} className="w-full p-2 bg-gray-800 border border-gray-700 rounded"></textarea>
-                  {!session.data?.user && <Button type="submit" className="w-full bg-white text-black hover:bg-gray-200 transition duration-300 ease-in-out">Send Message</Button>}
-                </form>
-              </div>
-            </div>
-          </section>
-    
-          {/* Footer */}
-          <footer className="border-t border-gray-800 py-8 bg-black">
-            <div className="container mx-auto px-4 text-center">
-              <p className="text-gray-400">&copy; 2023 SoundSync. All rights reserved.</p>
-              <div className="mt-4">
-                <Link href="/privacy" className="text-gray-400 hover:text-white mr-4">Privacy Policy</Link>
-                <Link href="/terms" className="text-gray-400 hover:text-white mr-4">Terms of Service</Link>
-                <Link href="#contact" className="text-gray-400 hover:text-white">Contact Us</Link>
-              </div>
-            </div>
-          </footer>
+            </RetroButton>
+            <RetroButton variant="primary" className="flex items-center space-x-2">
+              <span>Learn More</span>
+              <ArrowRight className="w-5 h-5" />
+            </RetroButton>
+          </div>
         </div>
+      </section>
+
+      <WavyDivider />
+
+      {/* Features Section */}
+      <section id="features" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <RetroHeading>Key Features</RetroHeading>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <ListMusic className="w-12 h-12" />,
+                title: "Create Playlists",
+                description: "Curate and share your unique music collections with the community."
+              },
+              {
+                icon: <ThumbsUp className="w-12 h-12" />,
+                title: "Upvote Favorites",
+                description: "Push the best tracks to the top by upvoting your favorites."
+              },
+              {
+                icon: <ThumbsDown className="w-12 h-12" />,
+                title: "Downvote to Refine",
+                description: "Help improve playlists by downvoting mismatched tracks."
+              }
+            ].map((feature, index) => (
+              <RetroCard key={index} className="text-center transform hover:-translate-y-1 transition-transform">
+                <div className="mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </RetroCard>
+            ))}
+          </div>
         </div>
+      </section>
+
+      <WavyDivider />
+
+      {/* How It Works Section */}
+      <section className="py-20 bg-black text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <RetroHeading>How It Works</RetroHeading>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Music className="w-16 h-16" />,
+                title: "1. Create a Playlist",
+                description: "Curate your perfect playlist and share it with the community."
+              },
+              {
+                icon: <Users className="w-16 h-16" />,
+                title: "2. Community Votes",
+                description: "Users upvote or downvote songs in the playlist."
+              },
+              {
+                icon: <Headphones className="w-16 h-16" />,
+                title: "3. Playlist Evolves",
+                description: "Top-voted songs rise to the top, creating a community-curated experience."
+              }
+            ].map((step, index) => (
+              <div key={index} className="text-center relative">
+                <div className="mb-4 relative">
+                  <div className="absolute inset-0 border-2 border-white transform rotate-45" />
+                  <div className="relative z-10">{step.icon}</div>
+                </div>
+                <h3 className="text-xl font-bold mb-2">{step.title}</h3>
+                <p className="text-gray-400">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <WavyDivider />
+
+      {/* Pricing Section */}
+      <section id="pricing" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <RetroHeading>Choose Your Plan</RetroHeading>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {[
+              {
+                title: "Free",
+                features: [
+                  "Discover playlists",
+                  "Vote on tracks",
+                  "Limited playlist creation"
+                ],
+                buttonText: "Start Free"
+              },
+              {
+                title: "Premium",
+                features: [
+                  "All Free features",
+                  "Unlimited playlist creation",
+                  "Advanced analytics",
+                  "Ad-free experience"
+                ],
+                buttonText: "Go Premium"
+              }
+            ].map((plan, index) => (
+              <RetroCard key={index} className="transform hover:-translate-y-1 transition-transform">
+                <h3 className="text-2xl font-bold mb-4">{plan.title}</h3>
+                <ul className="space-y-2 mb-6">
+                  {plan.features.map((feature, fIndex) => (
+                    <li key={fIndex} className="flex items-center">
+                      <Check className="w-5 h-5 mr-2" />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <RetroButton variant={index === 0 ? 'primary' : 'secondary'} className="w-full">
+                  {plan.buttonText}
+                </RetroButton>
+              </RetroCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <WavyDivider />
+
+      {/* About Section */}
+      <section id="about" className="py-20 bg-black text-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <RetroHeading>About SoundSync</RetroHeading>
+          </div>
+          <div className="relative max-w-2xl mx-auto">
+            <div className="absolute inset-0 border-2 border-white transform translate-x-4 translate-y-4" />
+            <p className="relative z-10 p-8 border-2 border-white text-center text-lg">
+              SoundSync is a revolutionary platform that brings music lovers together. 
+              We believe in the power of community-driven playlists, where every vote 
+              shapes the listening experience. Our mission is to create a dynamic space 
+              where music discovery is collaborative, exciting, and always evolving.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <WavyDivider />
+
+      {/* Contact Section */}
+      {/* <section id="contact" className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-8">
+            <RetroHeading>Contact Us</RetroHeading>
+          </div>
+          <div className="max-w-md mx-auto">
+            <RetroCard>
+              <form className="space-y-4">
+                <input 
+                  type="text" 
+                  placeholder="Name" 
+                  className="w-full p-2 border-2 border-black focus:outline-none focus:ring-2 focus:ring-black" 
+                />
+                <input 
+                  type="email" 
+                  placeholder="Email" 
+                  className="w-full p-2 border-2 border-black focus:outline-none focus:ring-2 focus:ring-black" 
+                />
+                <textarea 
+                  placeholder="Message" 
+                  rows={4} 
+                  className="w-full p-2 border-2 border-black focus:outline-none focus:ring-2 focus:ring-black"
+                />
+                <RetroButton variant="primary" className="w-full">
+                  Send Message
+                </RetroButton>
+              </form>
+            </RetroCard>
+          </div>
+        </div>
+      </section> */}
+
+      {/* Footer */}
+      <footer className="border-t-2 border-black py-8 bg-white">
+        <div className="container mx-auto px-4 text-center">
+          <p className="mb-4">&copy; 2023 SoundSync. All rights reserved.</p>
+          <div className="space-x-4">
+            <Link href="/privacy" className="hover:underline underline-offset-4">Privacy Policy</Link>
+            <Link href="/terms" className="hover:underline underline-offset-4">Terms of Service</Link>
+            <Link href="#contact" className="hover:underline underline-offset-4">Contact Us</Link>
+          </div>
+        </div>
+      </footer>
+    </div>
+  )
 }
+
