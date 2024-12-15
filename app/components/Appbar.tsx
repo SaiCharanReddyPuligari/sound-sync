@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button"
 import { RetroButton, RetroCard, WavyDivider, RetroHeading } from '@/app/components/retro-elements'
 import { SoundSyncLogo } from '@/app/components/logo'
 import { Github, ListMusic, ThumbsUp, ThumbsDown, Music, Users, Headphones, Check, ArrowRight } from 'lucide-react'
+import { Redirect } from "./Redirect";
 
 export default function Appbar() {
   const session= useSession();
   return (
     <div className="min-h-screen bg-white text-black">
+      <Redirect/>
       {/* Header */}
       <header className="border-b-2 border-black">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -21,8 +23,8 @@ export default function Appbar() {
             <Link href="#pricing" className="hover:underline underline-offset-4">Pricing</Link>
             <Link href="#about" className="hover:underline underline-offset-4">About</Link>
             <Link href="#contact" className="hover:underline underline-offset-4">Contact</Link>
-            {session.data?.user && <button className= "hover:underline underline-offset-40" onClick={()=>signOut()}>Logout</button>} 
-            {!session.data?.user && <button className= "hover:underline underline-offset-40" onClick={()=>signIn()}>SignIn</button>}
+            {session.data?.user && <Button className= "hover:underline underline-offset-4" onClick={()=>signOut()}>Logout</Button>} 
+            {!session.data?.user && <Button className= "hover:underline underline-offset-4" onClick={()=>signIn()}>SignIn</Button>}
             <Link 
               href="https://github.com/SaiCharanReddyPuligari/sound-sync" 
               target="_blank" 

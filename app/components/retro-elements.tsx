@@ -57,3 +57,16 @@ interface RetroButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
     )
   }
   
+  export function RetroInput({ ...props }: React.InputHTMLAttributes<HTMLInputElement>) {
+    return (
+      <input
+        {...props}
+        className={`
+          w-full p-2 border-2 border-black focus:outline-none focus:ring-2 focus:ring-black
+          ${props.className || ''}
+        `}
+      />
+    )
+  }
+  
+  

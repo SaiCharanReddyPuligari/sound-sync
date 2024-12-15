@@ -33,9 +33,12 @@ export default async function POST(request:NextRequest) {
                 }
             }
         })
+        return NextResponse.json({
+            message: "Downvote done!"
+        })
     } catch (error) {
         return NextResponse.json({
-            message: "Error in upvoting"
+            message: "Error in downvoting"
         },{
             status: 483
         })
